@@ -2,7 +2,7 @@
 import sys, urllib, json, pymongo
 from bson import json_util
 from pymongo import MongoClient
-        
+
 
 connection = MongoClient('localhost', 27017)
 connection.database_names()

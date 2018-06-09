@@ -18,69 +18,74 @@ start_next = False #starts the next json object if new line at end with no data
 prev_char = '' #the previous character looked at
 inner_paren = False #if the quotation mark looked at is inside another set of quotation marks
 current_char = 0 #character index currently
-for char in contents:
-  #print(char, num_commas, num_fields, start_next,first_paren)
-  char = unidecode.unidecode(str(char)) #get rid of special characters
-  if char == '\\': #if there is a backslash make it forward slash
-    char = '/'
-  elif char == '\t': #replace tabs with "\t"
-    char = '\\\\t'
-  elif (contents[current_char-2:current_char+1] == '\"\n,'): #if there is a quotation mark, new line, comma, this is a new json json object
-    start_next = True
-    data = data[:len(data)-6] + '\"'
-    data_in = False
-  elif prev_char == '\n' and not(first_paren): #if there is a closing quotation mark and a new line, this is a new json json object
-    first_paren = not(first_paren)
-    start_next = True
-    data = data[:len(data)-4] + '\"'
-    data_in = True
-  elif char == '\"': #if character is a quotation mark, flip first_paren and add either a ` or "
-    first_paren = not(first_paren)
-    if data[len(data)-1] == ':' or prev_char == '':
-      data += char
-    elif inner_paren:
-      data += '`'
-    elif prev_char == '\"':
-      data += char
-    else:
-      data += '`'
-    data_in = True
-  elif char == ',' and not(first_paren):
-    num_commas += 1
-    if data[len(data)-1:] == '`':
-      data = data[:len(data)-1]
-      data += '\"'
-    elif not(data_in):
-      data += "\"null\""
-    if num_commas < num_fields:
-      inner_paren = True
-      data = data + ',\"' + fieldnames[num_commas] + '\":'
+
+def main(args):
+  for char in contents:
+    #print(char, num_commas, num_fields, start_next,first_paren)
+    char = unidecode.unidecode(str(char)) #get rid of special characters
+    if char == '\\': #if there is a backslash make it forward slash
+      char = '/'
+    elif char == '\t': #replace tabs with "\t"
+      char = '\\\\t'
+    elif (contents[current_char-2:current_char+1] == '\"\n,'): #if there is a quotation mark, new line, comma, this is a new json json object
+      start_next = True
+      data = data[:len(data)-6] + '\"'
       data_in = False
-  elif char == '\n':
-    data += '\\\\n'
-  else: #add char to data otherwise
-    data += char
-    data_in = True
-  prev_char = char
-  current_char += 1
-  if num_commas == num_fields or start_next:
-    count += 1
-    word = '\"Spouse\"\"'
-    if data[len(data)-len(word):] == word:
-      data = data[:len(data) - len(word)] + '\"Spouse\":\"\"'
-    word = '\"Web Page\"\"'
-    if data[len(data)-len(word):] == word:
-      data = data[:len(data) - len(word)] + '\"Web Page\":\"\"'
-    data += '}'
-    #print(data)
-    num_commas = 0
-    jsonfile.write(data)
-    jsonfile.write('\n')
-    data = '{\"' + fieldnames[num_commas] + '\":'
-    if not(data_in):
+    elif prev_char == '\n' and not(first_paren): #if there is a closing quotation mark and a new line, this is a new json json object
+      first_paren = not(first_paren)
+      start_next = True
+      data = data[:len(data)-4] + '\"'
+      data_in = True
+    elif char == '\"': #if character is a quotation mark, flip first_paren and add either a ` or "
+      first_paren = not(first_paren)
+      if data[len(data)-1] == ':' or prev_char == '':
+        data += char
+      elif inner_paren:
+        data += '`'
+      elif prev_char == '\"':
+        data += char
+      else:
+        data += '`'
+      data_in = True
+    elif char == ',' and not(first_paren):
       num_commas += 1
-      data = data + "\"null\"" + ',\"' + fieldnames[num_commas] + '\":'
-    else:
-      data += '\"'
-    start_next = False
-    inner_paren = False
+      if data[len(data)-1:] == '`':
+        data = data[:len(data)-1]
+        data += '\"'
+      elif not(data_in):
+        data += "\"null\""
+      if num_commas < num_fields:
+        inner_paren = True
+        data = data + ',\"' + fieldnames[num_commas] + '\":'
+        data_in = False
+    elif char == '\n':
+      data += '\\\\n'
+    else: #add char to data otherwise
+      data += char
+      data_in = True
+    prev_char = char
+    current_char += 1
+    if num_commas == num_fields or start_next:
+      count += 1
+      word = '\"Spouse\"\"'
+      if data[len(data)-len(word):] == word:
+        data = data[:len(data) - len(word)] + '\"Spouse\":\"\"'
+      word = '\"Web Page\"\"'
+      if data[len(data)-len(word):] == word:
+        data = data[:len(data) - len(word)] + '\"Web Page\":\"\"'
+      data += '}'
+      #print(data)
+      num_commas = 0
+      jsonfile.write(data)
+      jsonfile.write('\n')
+      data = '{\"' + fieldnames[num_commas] + '\":'
+      if not(data_in):
+        num_commas += 1
+        data = data + "\"null\"" + ',\"' + fieldnames[num_commas] + '\":'
+      else:
+        data += '\"'
+      start_next = False
+      inner_paren = False
+
+if __name__ == '__main__':
+  main(sys.argv[1:])
