@@ -14,7 +14,9 @@
     "jsonwebtoken": "8.1.0",
     "body-parser": "1.18.2",
     "passport": "0.4.0",
-    "passport-jwt": "3.0.1"
+    "passport-jwt": "3.0.1",
+    "morgan": "^1.9.0",
+    "method-override": "^2.3.10"
   },
   "author": "",
   "license": "MIT",
