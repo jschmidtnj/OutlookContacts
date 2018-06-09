@@ -1,0 +1,22 @@
+{
+  "name": "meanauthenticationapp",
+  "version": "1.0.0",
+  "description": "authentication protocol application using MEAN stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Joshua Schmidt",
+  "license": "ISC"
+}

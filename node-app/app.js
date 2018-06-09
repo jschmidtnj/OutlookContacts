@@ -37,7 +37,7 @@ const app = express();
 app.use(morgan('dev')); // log every request to the console
 
 //Routes:
-require('./routes.js')(app);
+const todos = require('./routes.js')(app);
 const users = require('./routes/users');
 
 // Port Number

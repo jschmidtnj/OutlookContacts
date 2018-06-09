@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="https://bootswatch.com/3/sandstone/bootstrap.min.css">
+<!--link rel="stylesheet" href="/navbar.component.css"-->
+  <nav class="navbar navbar-expand-md navbar-dark navbar-color fixed-top">
+      <a class="navbar-brand" href="#">MEAN Authentication App</a>      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="nav navbar-nav navbar-left">
+              <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}"><a [routerLink]="['/']">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+            <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}"><a [routerLink]="['/profile']">Profile</a></li>
+            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}"><a [routerLink]="['/login']">Login</a></li>
+            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}"><a [routerLink]="['/register']">Register</a></li>
+            <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#">Logout</a></li>
+          </ul>
+      </div>
+    </nav>
