@@ -1,4 +1,5 @@
 var Todo = require('./models/todo');
+var fs = require('fs');
 
 function getTodos(res) {
     Todo.find(function (err, todos) {
@@ -50,10 +51,12 @@ module.exports = function (app) {
         });
     });
 
-    /*
+
     // application -------------------------------------------------------------
+    /*
+    fs.readFile()
     app.get('*', function (req, res) {
-        res.sendFile(__dirname + '/angular-src/src/app/components/dashboard/dashboard.component.html'); // load the single view file (angular will handle the page changes on the front-end)
+        res.sendFile(__dirname + '/angular-src/dist/out-tsc/app/components/dashboard/dashboard.component.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
     */
 
