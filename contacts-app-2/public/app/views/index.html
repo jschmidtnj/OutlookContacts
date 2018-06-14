@@ -72,7 +72,10 @@
                         <a ng-show="main.isLoggedIn" class="page-scroll" href="#" ng-click="main.logout();">Logout</a>
                     </li>
                     <li class="">
-                        <a ng-show="main.isLoggedIn && main.authorized" class="page-scroll" href="/management">Management</a>
+                        <a ng-show="main.isLoggedIn" class="page-scroll" href="/registerContact">Register Contact</a>
+                    </li>
+                    <li class="">
+                        <a ng-show="main.isLoggedIn && main.authorized" class="page-scroll" href="/management">User Management</a>
                     </li>
                     <li class="">
                         <a ng-show="main.isLoggedIn" class="page-scroll" href="/profile">Hello {{ main.username }}</a>

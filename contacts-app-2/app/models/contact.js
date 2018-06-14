@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs'); // Import Bcrypt Package
 var titlize = require('mongoose-title-case'); // Import Mongoose Title Case Plugin
 var validate = require('mongoose-validator'); // Import Mongoose Validator Plugin
 
-// User Name Validator
+// Contact Name Validator
 var nameValidator = [
     validate({
         validator: 'matches',
@@ -18,7 +18,7 @@ var nameValidator = [
     })
 ];
 
-// User E-mail Validator
+// Contact E-mail Validator
 var emailValidator = [
     validate({
         validator: 'matches',
@@ -59,40 +59,25 @@ var passwordValidator = [
     })
 ];
 
-// User Mongoose Schema
-var UserSchema = new Schema({
+// Contact Mongoose Schema
+var ContactSchema = new Schema({
     name: { type: String, required: true, validate: nameValidator },
-    username: { type: String, lowercase: true, required: true, unique: true, validate: usernameValidator },
-    password: { type: String, required: true, validate: passwordValidator, select: false },
     email: { type: String, required: true, lowercase: true, unique: true, validate: emailValidator },
-    active: { type: Boolean, required: true, default: false },
-    temporarytoken: { type: String, required: true },
-    resettoken: { type: String, required: false },
-    permission: { type: String, required: true, default: 'moderator' }
 });
 
-// Middleware to ensure password is encrypted before saving user to database
-UserSchema.pre('save', function(next) {
-    var user = this;
-
-    if (!user.isModified('password')) return next(); // If password was not changed or is new, ignore middleware
-
-    // Function to encrypt password
-    bcrypt.hash(user.password, null, null, function(err, hash) {
-        if (err) return next(err); // Exit if error is found
-        user.password = hash; // Assign the hash to the user's password so it is saved in database encrypted
-        next(); // Exit Bcrypt function
-    });
+// Middleware to ensure password is encrypted before saving contact to database
+ContactSchema.pre('save', function(next) {
+    var contact = this;
 });
 
 // Mongoose Plugin to change fields to title case after saved to database (ensures consistency)
-UserSchema.plugin(titlize, {
+ContactSchema.plugin(titlize, {
     paths: ['name']
 });
 
-// Method to compare passwords in API (when user logs in)
-UserSchema.methods.comparePassword = function(password) {
+// Method to compare passwords in API (when contact logs in)
+ContactSchema.methods.comparePassword = function(password) {
     return bcrypt.compareSync(password, this.password); // Returns true if password matches, false if doesn't
 };
 
-module.exports = mongoose.model('User', UserSchema); // Export User Model for us in API
+module.exports = mongoose.model('Contact', ContactSchema); // Export contact Model for us in API

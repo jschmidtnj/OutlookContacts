@@ -6,7 +6,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
     // AngularJS Route Handler
     $routeProvider
 
-    // Route: Home             
+    // Route: Home
         .when('/', {
         templateUrl: 'app/views/pages/home.html'
     })
@@ -14,6 +14,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
     // Route: About Us (for testing purposes)
     .when('/about', {
         templateUrl: 'app/views/pages/about.html'
+    })
+
+    // Route: Contact Registration
+    .when('/registerContact', {
+        templateUrl: 'app/views/pages/contactmanagement/registerContact.html',
+        controller: 'regCtrl',
+        controllerAs: 'register',
+        authenticated: true
     })
 
     // Route: User Registration
@@ -36,7 +44,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: true
     })
 
-    // Route: Facebook Callback Result            
+    // Route: Facebook Callback Result
     .when('/facebook/:token', {
         templateUrl: 'app/views/pages/users/social/social.html',
         controller: 'facebookCtrl',
@@ -124,7 +132,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: false
     })
 
-    // Route: Request New Activation Link            
+    // Route: Request New Activation Link
     .when('/resend', {
         templateUrl: 'app/views/pages/users/activation/resend.html',
         controller: 'resendCtrl',
@@ -191,7 +199,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 // Run a check on each route to see if user is logged in or not (depending on if it is specified in the individual route)
 app.run(['$rootScope', 'Auth', '$location', 'User', function($rootScope, Auth, $location, User) {
 
-    // Check each time route changes    
+    // Check each time route changes
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
 
         // Only perform if user visited a route listed above
