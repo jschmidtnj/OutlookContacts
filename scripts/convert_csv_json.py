@@ -1,25 +1,24 @@
 import csv
 import json
 import unidecode
-
-path = '/mnt/c/users/jschm/Desktop/Alkesh/outlook_contacts.CSV'
-with open(path, 'rt', encoding='mac_croatian') as f:
-  contents = f.read()
-jsonfile = open('outlook_contacts.json', 'w') #write data to this file
-
-fieldnames = ("title","first name","middle name","last name","suffix","company","department","job title","business street","business street 2","business street 3","business city","business state","business postal code","business country/region","home street","home street 2","home street 3","home city","home state","home postal code","home country/region","other street","other street 2","other street 3","other city","other state","other postal code","other country/region","assistant's phone","business fax","business phone","business phone 2","callback","car phone","company main phone","home fax","home phone","home phone 2","ISDN","mobile phone","other fax","other phone","pager","primary phone","radio phone","TTY/TDD phone","telex","account","anniversary","assistant's name","billing information","birthday","business address PO box","categories","children","directory server","email","email type","email display name","email 2 Address","email 2 type","email 2 display name","email 3 address","email 3 type","email 3 display name","gender","government ID number","hobby","home address PO box","initials","internet free busy","keywords","language","location","manager's name","mileage","notes","office location","organizational ID number","other address PO box","priority","private","profession","referred by","sensitivity","spouse","user 1","user 2","user 3","user 4","web page")
-count = 0 #count of json objects entered
-num_commas = 0 #number of commas found (essentially field-name deliminators)
-num_fields = len(fieldnames) #obviously the number of fieldnames above
-data = '{\"' + fieldnames[num_commas] + '\":' #this is the data that is put in the json file, as a json object
-first_paren = False #first quotation mark hit
-data_in = False #creates the null if there is no information whatsoever
-start_next = False #starts the next json object if new line at end with no data
-prev_char = '' #the previous character looked at
-inner_paren = False #if the quotation mark looked at is inside another set of quotation marks
-current_char = 0 #character index currently
+import sys
 
 def main(args):
+  path = '/mnt/c/users/jschm/Desktop/Alkesh/data_files/outlook_contacts.CSV'
+  with open(path, 'rt', encoding='mac_croatian') as f:
+    contents = f.read()
+  jsonfile = open('/mnt/c/users/jschm/Desktop/Alkesh/data_files/outlook_contacts.json', 'w') #write data to this file
+  fieldnames = ("Title","First Name","Middle Name","Last Name","Suffix","Company","Department","Job Title","Business Street","Business Street 2","Business Street 3","Business City","Business State","Business Postal Code","Business Country/Region","Home Street","Home Street 2","Home Street 3","Home City","Home State","Home Postal Code","Home Country/Region","Other Street","Other Street 2","Other Street 3","Other City","Other State","Other Postal Code","Other Country/Region","Assistant's Phone","Business Fax","Business Phone","Business Phone 2","Callback","Car Phone","Company Main Phone","Home Fax","Home Phone","Home Phone 2","ISDN","Mobile Phone","Other Fax","Other Phone","Pager","Primary Phone","Radio Phone","TTY/TDD Phone","Telex","Account","Anniversary","Assistant's Name","Billing Information","Birthday","Business Address PO Box","Categories","Children","Directory Server","E-mail Address","E-mail Type","E-mail Display Name","E-mail 2 Address","E-mail 2 Type","E-mail 2 Display Name","E-mail 3 Address","E-mail 3 Type","E-mail 3 Display Name","Gender","Government ID Number","Hobby","Home Address PO Box","Initials","Internet Free Busy","Keywords","Language","Location","Manager's Name","Mileage","Notes","Office Location","Organizational ID Number","Other Address PO Box","Priority","Private","Profession","Referred By","Sensitivity","Spouse","User 1","User 2","User 3","User 4","Web Page")
+  count = 0 #count of json objects entered
+  num_commas = 0 #number of commas found (essentially field-name deliminators)
+  num_fields = len(fieldnames) #obviously the number of fieldnames above
+  data = '{\"' + fieldnames[num_commas] + '\":' #this is the data that is put in the json file, as a json object
+  first_paren = False #first quotation mark hit
+  data_in = False #creates the null if there is no information whatsoever
+  start_next = False #starts the next json object if new line at end with no data
+  prev_char = '' #the previous character looked at
+  inner_paren = False #if the quotation mark looked at is inside another set of quotation marks
+  current_char = 0 #character index currently
   for char in contents:
     #print(char, num_commas, num_fields, start_next,first_paren)
     char = unidecode.unidecode(str(char)) #get rid of special characters
