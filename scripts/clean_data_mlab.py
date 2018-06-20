@@ -8,13 +8,12 @@ from bson.objectid import ObjectId
 import ast
 import re
 
-def main(args):
+def main():
   #uri goes to mlab for getting the data
   uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
   client  = MongoClient(uri)
   #connect to database
   db = client.get_default_database()
-  '''
   #by Email:
   pipeline = [
     {"$match":{"E-mail Address":{"$nin":["null","?"]},}},
@@ -30,6 +29,7 @@ def main(args):
     {"$match":{"count": {"$gt": 1}}},
     {"$sort": SON([("count", -1), ("_id", -1)])}
   ]
+  '''
   #send data to list
   data = list(db.contacts.aggregate(pipeline))
   #db.command('aggregate', 'contacts', pipeline=pipeline, explain=True)
@@ -89,4 +89,4 @@ def main(args):
   print("Deleted " + str(num_iter) + " duplicate contacts, replaced with " + str(len(new_ids)) + " new aggregates. IDs: " + ' '.join(str(value) for value in new_ids) + "key errors: " + str(error_count))
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

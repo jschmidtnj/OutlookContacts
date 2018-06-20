@@ -62,3 +62,9 @@ typings/
 
 #ignore config folder
 node-app/config/
+
+#ignore data folder
+data/
+
+#ignore build folder
+scripts/build/
