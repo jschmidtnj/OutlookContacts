@@ -7,7 +7,7 @@ base = None
 
 executables = [Executable("clean_data_reimport.py", base=base)]
 
-packages = ["idna", "os", "sys", "json", "csv", "unidecode", "unicodedata", "urllib", "pymongo", "bson", "pprint", "ast", "re"]
+packages = ["idna", "os", "sys", "json", "csv", "unidecode", "unicodedata", "urllib", "pymongo", "bson", "pprint", "ast", "re", "time",]
 options = {
     'build_exe': {    
         'packages':packages,

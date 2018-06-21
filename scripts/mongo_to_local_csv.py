@@ -5,9 +5,7 @@ from bson.json_util import dumps, RELAXED_JSON_OPTIONS
 import os
 import csv
 
-uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
-
-def main(filename_csv):
+def main(uri, filename_csv):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #other directory
     path = main_path + "/" + filename_csv + ".csv"
@@ -75,5 +73,7 @@ def main(filename_csv):
 
 
 if __name__ == '__main__':
+    #uri goes to mlab for getting the data
+    uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
     filename_csv = "contacts_exported"
-    main(filename_csv)
+    main(uri, filename_csv)

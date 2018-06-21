@@ -8,9 +8,7 @@ from bson.objectid import ObjectId
 import ast
 import re
 
-def main():
-  #uri goes to mlab for getting the data
-  uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
+def main(uri):
   client  = MongoClient(uri)
   #connect to database
   db = client.get_default_database()
@@ -89,4 +87,6 @@ def main():
   print("Deleted " + str(num_iter) + " duplicate contacts, replaced with " + str(len(new_ids)) + " new aggregates. IDs: " + ' '.join(str(value) for value in new_ids) + "key errors: " + str(error_count))
 
 if __name__ == '__main__':
-    main()
+    #uri goes to mlab for getting the data
+    uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
+    main(uri)

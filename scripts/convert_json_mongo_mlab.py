@@ -2,10 +2,10 @@
 import sys, urllib, json, pymongo
 from bson import json_util
 import os
+import time
 
-uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
 
-def main():
+def main(uri, sleep_time):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #different directory
     for file in os.listdir(main_path):
@@ -40,7 +40,12 @@ def main():
                         #line += next(f)
     except:
         print("json file not found in directory")
+        time.sleep(sleep_time)
+        exit()
+
     print("There were " + str(error_count) + " errors")
 
 if __name__ == '__main__':
-    main()
+    uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
+    sleep_time = 5
+    main(uri, sleep_time)

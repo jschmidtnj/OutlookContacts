@@ -5,8 +5,9 @@ import unidecode
 import unicodedata
 import sys
 import os
+import time
 
-def main(filename_json):
+def main(sleep_time, filename_json):
   main_path = os.getcwd() #same directory
   #main_path = main_path[0:main_path.find("/scripts")] + "/data" #different directory
   csv_count = 0
@@ -20,11 +21,14 @@ def main(filename_json):
       contents = f.read()
   except:
     if csv_count == 0:
-      print("no csv file found in directory")
+      print("put exported csv file from outlook in same directory as exe")
+      time.sleep(sleep_time)
     elif csv_count == 1:
       print("csv file error")
+      time.sleep(sleep_time)
     else:
-      print("more than one csv file found in directory")
+      print("more than one csv file found in exe directory")
+      time.sleep(sleep_time)
     exit()
   path = os.path.join(main_path, (filename_json + ".json"))
   jsonfile = open(path, 'w') #write data to this file
@@ -120,4 +124,5 @@ def main(filename_json):
 
 if __name__ == '__main__':
   filename_json = "contacts"
-  main(filename_json)
+  sleep_time = 5
+  main(sleep_time, filename_json)
