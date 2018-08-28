@@ -4,7 +4,7 @@ This application is created with Firebase, Bootstrap, Vuejs, jQuery, and vanilla
 
 ## generate static distribution files
 
-First clone the repository (it works best in linux): `git clone --recursive https://<github-account-name>:<github-account-token>@github.com/jschmidtnj/outlookcontacts.git && cd wiki && git pull origin master && cd .. && ls`.  
+First clone the repository (it works best in linux): `git clone --recursive https://<github-account-name>:<github-account-token>@github.com/jschmidtnj/outlookcontacts.git && git submodule add --force ../outlookcontacts.wiki.git wiki && cd wiki && git pull origin master && cd .. && ls`.  
 Then install [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable).  
 Run `yarn` in the main directory.  
 Finally `dist/index.html` in a web-browser and make sure the splash page works.  
