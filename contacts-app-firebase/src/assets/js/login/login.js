@@ -127,6 +127,7 @@ $(document).ready(function () {
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
 
+    window.urlRedirect = "dashboard.html";
     checkIfLoggedin();
 
     $("#loginSubmitGoogle").on('click touchstart', function () {
