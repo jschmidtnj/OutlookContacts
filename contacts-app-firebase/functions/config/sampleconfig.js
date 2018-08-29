@@ -17,22 +17,22 @@ var config = {
     },
     "approvalNotificationEmailData": {
         "FromEmail": "email@example.com",
-        "FromName": "Forms App"
+        "FromName": "Outlook Contacts App"
     },
     "approvedNotificationEmailData": {
         "FromEmail": "email@example.com",
-        "FromName": "Forms App"
+        "FromName": "Outlook Contacts App"
     },
     "rejectedNotificationEmailData": {
         "FromEmail": "email@example.com",
-        "FromName": "Forms App"
+        "FromName": "Outlook Contacts App"
     },
     "other": {
         "databaseurl": "url",
         "maxconcurrentaccountdeletions": "3",
         "daysofinactivity": "1",
-        "cronjoburl": "https://app.cloudfunctions.net/accountcleanup?key=key",
-        "indexaddress": "https://formsapp-9fe5b.firebaseapp.com/",
+        "cronjoburl": "https://us-central1-outlook-contacts.cloudfunctions.net/accountcleanup?key=key",
+        "indexaddress": "https://outlook-contacts.firebaseapp.com/",
         "logoimagesrc": "assets/images/colpallogo_red.png",
         "heroimagesrc": "assets/images/emailheroimage.png",
         "privacypolicyurl": "https://www.colgatepalmolive.com/en-us/legal-privacy-policy/privacy-policy",
@@ -40,6 +40,6 @@ var config = {
         "address": "909 River Rd, Piscataway Township, NJ 08854",
         "phonenumber": "(732) 878-7500"
     }
-}
+};
 
 module.exports = config;

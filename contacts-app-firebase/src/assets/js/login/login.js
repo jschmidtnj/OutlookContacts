@@ -81,8 +81,8 @@ function signInGoogle() {
                 var userId = user.uid;
                 var name = user.displayName;
                 var notificationsettingsData = {
-                    emailapprove: true
-                }
+                    emailon: true
+                };
                 firebase.database().ref('users/' + userId).set({
                     name: name,
                     email: email,
@@ -122,37 +122,11 @@ function checkIfLoggedin() {
     }, 500);
 }
 
-function checkForRedirect() {
-    $.urlParam = function (name) {
-        try {
-            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-            //console.log(results)
-            return results[1] || 0;
-        } catch (err) {
-            //console.log(err);
-            return "";
-        }
-    }
-
-    var formId = $.urlParam('formid');
-    var urlMode = $.urlParam('mode');
-    window.urlRedirect = "dashboard.html";
-    if (formId !== "" && urlMode !== "") {
-        window.urlRedirect = "user.html";
-        if (urlMode == "edit") {
-            window.urlRedirect = "edit.html?mode=edit&formid=" + formId;
-        } else if (urlMode == "view") {
-            window.urlRedirect = "view.html?mode=view&formid=" + formId;
-        }
-    }
-}
-
 $(document).ready(function () {
 
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
 
-    checkForRedirect();
     checkIfLoggedin();
 
     $("#loginSubmitGoogle").on('click touchstart', function () {

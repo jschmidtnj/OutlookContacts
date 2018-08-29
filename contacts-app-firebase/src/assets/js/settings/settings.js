@@ -44,13 +44,13 @@ function getInitialValues() {
         $("#username").val(username);
         if (window.userstatus == "employee") {
             //console.log("employee");
-            var approvenotificationssetting = userDataVal.notificationsettings.emailapprove;
-            if (approvenotificationssetting) {
-                $("#approvenotificationslabel").text("On");
-                $("#approvenotifications").prop('checked', true);
+            var emailnotificationssetting = userDataVal.notificationsettings.emailon;
+            if (emailnotificationssetting) {
+                $("#emailnotificationslabel").text("On");
+                $("#emailnotifications").prop('checked', true);
             } else {
-                $("#approvenotificationslabel").text("Off");
-                $("#approvenotifications").prop('checked', false);
+                $("#emailnotificationslabel").text("Off");
+                $("#emailnotifications").prop('checked', false);
             }
         } else if (window.userstatus == "nonemployee") {
             //console.log("nonemployee");
@@ -95,7 +95,7 @@ $(document).ready(function () {
             $("#bodycollapse").removeClass("collapse");
             if (window.userstatus == "employee") {
                 $("#changeNotificationsCollapse").removeClass("collapse");
-                $("#approvenotifications").change(function () {
+                $("#emailnotifications").change(function () {
                     //console.log("changing approve notification setting");
                     var checked = this.checked;
                     if (checked) {
@@ -106,14 +106,14 @@ $(document).ready(function () {
                         data = false;
                     }
                     var notificationsettingsData = {
-                        emailapprove: checked
-                    }
+                        emailon: checked
+                    };
                     firebase.database().ref('users/' + window.userId).update({
                         notificationsettings: notificationsettingsData
                     }).catch(function (err) {
                         handleError(err);
                     });
-                    $("#approvenotificationslabel").text(checked ? "On" : "Off");
+                    $("#emailnotificationslabel").text(checked ? "On" : "Off");
                 });
             } else if (window.userstatus == "nonemployee") {
                 $("#changeNotificationsCollapse").addClass("collapse");

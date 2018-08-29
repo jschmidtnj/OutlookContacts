@@ -10,12 +10,12 @@ const promisePool = require('es6-promise-pool');
 const PromisePool = promisePool.PromisePool;
 const secureCompare = require('secure-compare');
 const fs = require('fs');
-//const path = require('path');
+const path = require('path');
 
 var approvalNotificationEmailData = config.approvalNotificationEmailData;
 var approvalNotificationTemplate;
 //see https://stackoverflow.com/questions/9749114/getting-node-js-to-read-files-in-html-format/9749164
-fs.readFile(__dirname + "/htmltemplates/approvalNotification.html", "utf8", (err, html) => {
+fs.readFile(path.join(__dirname, "/htmltemplates/approvalNotification.html"), "utf8", (err, html) => {
     if (err !== "") {
         approvalNotificationTemplate = html;
         //console.log(approvalNotificationTemplate);
@@ -24,7 +24,7 @@ fs.readFile(__dirname + "/htmltemplates/approvalNotification.html", "utf8", (err
 
 var approvedNotificationEmailData = config.approvedNotificationEmailData;
 var approvedNotificationTemplate;
-fs.readFile(__dirname + "/htmltemplates/approvedNotification.html", "utf8", (err, html) => {
+fs.readFile(path.join(__dirname, "/htmltemplates/approvedNotification.html"), "utf8", (err, html) => {
     if (err !== "") {
         approvedNotificationTemplate = html;
         //console.log(approvedNotificationTemplate);
@@ -33,7 +33,7 @@ fs.readFile(__dirname + "/htmltemplates/approvedNotification.html", "utf8", (err
 
 var rejectedNotificationEmailData = config.rejectedNotificationEmailData;
 var rejectedNotificationTemplate;
-fs.readFile(__dirname + "/htmltemplates/rejectedNotification.html", "utf8", (err, html) => {
+fs.readFile(path.join(__dirname, "/htmltemplates/rejectedNotification.html"), "utf8", (err, html) => {
     if (err !== "") {
         rejectedNotificationTemplate = html;
         //console.log(rejectedNotificationTemplate);
@@ -89,8 +89,8 @@ exports.sendApprovalEmailNotification = functions.https.onCall((data, context) =
                         //console.log(userDataVal);
                         var notificationsettings = userDataVal.notificationsettings;
                         //console.log(notificationsettings);
-                        var emailapprove = userDataVal.notificationsettings.emailapprove;
-                        if (emailapprove === true) {
+                        var emailon = userDataVal.notificationsettings.emailon;
+                        if (emailon === true) {
                             //console.log("send email to " + currentWorkflowArr[emailcount]);
                             approvalNotificationEmailData.Recipients = [{
                                 'Email': currentWorkflowArr[emailcount]

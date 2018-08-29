@@ -1,5 +1,5 @@
 {
-  "name": "formsmanagement",
+  "name": "outlookusermanagement",
   "description": "Cloud Functions for Firebase managing emails and users",
   "scripts": {
     "lint": "eslint .",
