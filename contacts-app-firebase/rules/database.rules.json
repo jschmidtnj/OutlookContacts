@@ -1,6 +1,16 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    "users": {
+      "$uid": {
+        ".write": "auth != null",
+        ".read": "auth != null && auth.token.email_verified == true"
+      },
+      ".indexOn": ["email"],
+      ".read": "auth != null && auth.token.email_verified == true && auth.token.email.matches(/.*@gmail.com$/)"
+    },
+    "contacts": {
+      ".write": "auth != null && auth.token.email_verified == true",
+      ".read": "auth != null && auth.token.email_verified == true && auth.token.email.matches(/.*@gmail.com$/)"
+    }
   }
 }
