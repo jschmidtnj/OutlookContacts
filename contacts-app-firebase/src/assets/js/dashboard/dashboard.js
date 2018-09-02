@@ -1,4 +1,5 @@
-var jQuery = require("jquery/dist/jquery.min.js");
+var jQuery = require("jquery");
+require('jquery-validation');
 require("popper.js");
 require("bootstrap");
 window.$ = window.jQuery = jQuery;
@@ -38,6 +39,36 @@ $(document).ready(function () {
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
 
+    function createContactSubmitForm() {
+        if ($("#addContactForm").valid()) {
+            console.log("form valid");
+            var formData = $("#addContactForm").serializeArray();
+            //console.log(formData);
+            var contactId = firebase.database().ref().child('contacts').push().key;
+            var firstname = formData[0].value.toString();
+            var lastname = formData[1].value.toString();
+            var email = formData[2].value.toString();
+            var companyname = formData[3].value.toString();
+            firebase.database().ref('contacts/' + contactId).set({
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                companyname: companyname
+            }).then(function () {
+                // Update successful.
+                //console.log("update success");
+                $('#alertcontactadded').fadeIn();
+                setTimeout(function () {
+                    $('#alertcontactadded').fadeOut();
+                }, config.other.alerttimeout);
+                $('#addContactForm')[0].reset();
+            }).catch(function (error) {
+                // An error happened.
+                handleError(error);
+            });
+        }
+    }
+
     var signed_in_initially = false;
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -49,6 +80,11 @@ $(document).ready(function () {
                 window.location.href = "responses.html";
             } else {
                 $("#headermain").removeClass("collapse");
+                $("#bodycollapse").removeClass("collapse");
+                $("#addContactCollapse").removeClass("collapse");
+                $("#addContactSubmit").on('click touchstart', function () {
+                    createContactSubmitForm();
+                });
             }
             signed_in_initially = true;
         } else {
@@ -77,6 +113,43 @@ $(document).ready(function () {
             }
         }
     });
+
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            var re = new RegExp(regexp, 'i');
+            return this.optional(element) || re.test(value);
+        },
+        ""
+    );
+
+    $("#addContactSubmit").validate({
+        rules: {
+            firstname: {
+                required: true
+            },
+            lastname: {
+                required: true
+            }
+        },
+        messages: {
+            firstname: "Please enter the first name",
+            lastname: "Please enter the last name"
+        },
+        errorElement: "div",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the div element
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
     $("#logoutButton").on('click touchstart', function () {
         firebase.auth().signOut().then(function () {
             // Sign-out successful.

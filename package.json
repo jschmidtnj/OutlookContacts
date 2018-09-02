@@ -1,0 +1,13 @@
+{
+    "name": "contactsapp",
+    "version": "1.0.0",
+    "description": "This application is created with Firebase, Bootstrap, Vuejs, jQuery, and vanilla html for outlook contact management.",
+    "private": true,
+    "repository": "https://github.com/jschmidtnj/OutlookContacts.git",
+    "author": "Joshua Schmidt",
+    "license": "MIT",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "cd contacts-app-firebase && npm run build"
+    }
+}

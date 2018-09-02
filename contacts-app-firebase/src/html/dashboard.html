@@ -53,6 +53,10 @@
                 <div id="error-info"></div>
             </p>
         </div>
+        <div class="alert alert-success collapse" role="alert" id="alertcontactadded">
+            <h5 class="alert-heading">Contact Added Successfully</h5>
+            <hr>
+        </div>
     </div>
 </section>
 
@@ -67,8 +71,9 @@
                         <a class="navbar-brand js-scroll-trigger" href="index.html">
                             Contacts
                         </a>
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                            aria-label="Toggle navigation">
                             Menu
                             <i class="fa fa-bars"></i>
                         </button>
@@ -91,41 +96,50 @@
         </header>
 
         <main role="main" class="main">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
+            <br />
             <h4>Dashboard</h4>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <div id="bodycollapse" class="collapse">
+                <br />
+                <h5>Add Contact</h5>
+                <br />
+                <div id="addContactCollapse" class="collapse">
+                    <form id="addContactForm" method="post" action="">
+                        <div class="row justify-content-center">
+                            <div class="col-3">
+                                <label class="control-label" for="firstname">First Name</label>
+                                <input type="firstname" class="form-control" id="firstname" name="firstname" />
+                            </div>
+                            <div class="col-3">
+                                <label class="control-label" for="lastname">Last Name</label>
+                                <input type="lastname" class="form-control" id="lastname" name="lastname" />
+                            </div>
+                            <div class="col-3">
+                                <label class="control-label" for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" />
+                            </div>
+                            <div class="col-3">
+                                <label class="control-label" for="companyname">Company Name</label>
+                                <input type="companyname" class="form-control" id="companyname" name="companyname" />
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-sm-2">
+                        <button id="addContactSubmit" type="addContact" value="addContact" class="btn btn-primary btn-block onclick="
+                            void(0) "">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
         </main>
     </div>
 
