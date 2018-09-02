@@ -8,7 +8,7 @@
             "messagingSenderId": "123456789"
     },
     "regex": {
-            "companyemailregex": "^.*@gmail.com$",
+            "adminemailregex": "^.*@gmail.com$",
             "commaseperatedemails": "^((\\s?[^\\s,]+@[^\\s,]+\\.[^\\s,]+\\s?,)*(\\s?[^\\s,]+@[^\\s,]+\\.[^\\s,]+))$",
             "validemail": "^(([^<>()\\[\\]\\.,;:\\s@\\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$",
             "fullname": "^(.*\\s+.*)+$",
@@ -20,15 +20,10 @@
             "tosUrl": "https://apple.com",
             "privacyPolicyUrl": "https://google.com",
             "signInSuccessUrl": "http://apple.com",
-            "userviewmax": 500,
-            "approvalviewmax": 500,
-            "responseviewmax": 500,
+            "locationviewmax": 500,
             "datatimeout": 500,
             "redirecttimeout": 1000,
             "alerttimeout": 1000,
-            "savetimeout": 1000,
-            "maxfilesize": 10,
-            "filesizeunits": "mb",
-            "zipfilename": "data"
+            "outlookfieldnames": ["firstname", "lastname", "email", "companyname"]
     }
 }

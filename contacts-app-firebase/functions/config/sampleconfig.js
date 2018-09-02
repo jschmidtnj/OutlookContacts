@@ -15,30 +15,14 @@ var config = {
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_x509_cert_url": "url"
     },
-    "approvalNotificationEmailData": {
-        "FromEmail": "email@example.com",
-        "FromName": "Outlook Contacts App"
-    },
-    "approvedNotificationEmailData": {
-        "FromEmail": "email@example.com",
-        "FromName": "Outlook Contacts App"
-    },
-    "rejectedNotificationEmailData": {
-        "FromEmail": "email@example.com",
-        "FromName": "Outlook Contacts App"
-    },
     "other": {
         "databaseurl": "url",
+        "datatimeout": 1000,
         "maxconcurrentaccountdeletions": "3",
         "daysofinactivity": "1",
-        "cronjoburl": "https://us-central1-outlook-contacts.cloudfunctions.net/accountcleanup?key=key",
-        "indexaddress": "https://outlook-contacts.firebaseapp.com/",
-        "logoimagesrc": "assets/images/colpallogo_red.png",
-        "heroimagesrc": "assets/images/emailheroimage.png",
-        "privacypolicyurl": "https://www.colgatepalmolive.com/en-us/legal-privacy-policy/privacy-policy",
-        "termsofserviceurl": "https://shop.colgate.com/pages/terms-of-service",
-        "address": "909 River Rd, Piscataway Township, NJ 08854",
-        "phonenumber": "(732) 878-7500"
+        "accountcleanupcronjoburl": "url",
+        "contactcleanupcronjoburl": "url",
+        "secretKey": "key"
     }
 };
 

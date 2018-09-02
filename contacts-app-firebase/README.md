@@ -11,7 +11,7 @@ Finally `dist/index.html` in a web-browser and make sure the splash page works.
 
 ## edit configuration file
 
-Open `src/config/config.json` in a text editor. Go to [firebase](https://console.firebase.google.com) and create a new project. Then in `Project Overview`, click `</>` to add a web app. Copy the fields in the `var config`, and paste the values in the `src/config/config.json` `firebase` section. Next edit the `companyemailregex` to include regex that matches your company's email address (`^.*@gmail.com$` only allows gmail accounts to see response data). Finally, edit the values in `other` as needed.
+Open `src/config/config.json` in a text editor. Go to [firebase](https://console.firebase.google.com) and create a new project. Then in `Project Overview`, click `</>` to add a web app. Copy the fields in the `var config`, and paste the values in the `src/config/config.json` `firebase` section. Next edit the `adminemailregex` to include regex that matches your admin's email address (`^.*@gmail.com$` only allows gmail accounts to edit location data). Finally, edit the values in `other` as needed.
 
 ## edit CORS
 
@@ -80,7 +80,7 @@ firebase functions:config:set cron.key="YOUR-KEY"
 You can generate a random key, for instance, by running:
 
 ```bash
-node -e "//console.log(require('crypto').randomBytes(20).toString('hex'))"
+node -e "console.log(require('crypto').randomBytes(20).toString('hex'))"
 ```
 
 The url to use with cron jobs is as follows:

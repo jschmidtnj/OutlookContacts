@@ -63,7 +63,7 @@
 <body class="text-center">
 
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <header id="headermain" class="collapse masthead mb-auto">
+        <header id="headermain" class="masthead mb-auto">
             <div class="inner">
                 <!-- Navigation -->
                 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -128,18 +128,41 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-sm-2">
-                        <button id="addContactSubmit" type="addContact" value="addContact" class="btn btn-primary btn-block onclick="
-                            void(0) "">
-                            Submit
-                        </button>
+                    <br />
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-sm-2">
+                            <button id="addContactSubmit" type="addContact" value="addContact" class="btn btn-primary btn-block onclick="
+                                void(0) "">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="collapse display: inline-block" id="downloadSelectCollapse">
+                    <p>Download</p>
+                </div>
+                <div class="collapse display: inline-block" id="downloadButtonCollapse">
+                    <br />
+                    <div id="nodatawarning" class="collapse">
+                        <p>No contacts</p>
+                    </div>
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-sm-2">
+                            <button id="downloadLocationCSV" type="downloadLocationCSV" value="downloadLocationCSV"
+                                class="btn btn-primary btn-block onclick=" void(0) "">
+                                Download
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <br />
                 <br />
                 <br />
-                <br />
-                <br />
+            </div>
         </main>
     </div>
 
