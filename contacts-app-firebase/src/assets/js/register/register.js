@@ -13,6 +13,7 @@ var config = require('../../../config/config.json');
 var firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
+require("firebase/functions");
 
 firebase.initializeApp(config.firebase);
 
@@ -25,6 +26,9 @@ function handleError(error) {
     var errorMessage = error.message;
     //console.log(errorCode, errorMessage);
     var customMessage = "";
+    if (errorMessage !== "" && errorMessage !== undefined && errorMessage !== null) {
+        customMessage = errorMessage;
+    }
     if (errorCode == "auth/email-already-in-use") {
         customMessage = "Email already in use";
     } else if (errorCode == "auth/bad-email-user") {
@@ -169,87 +173,105 @@ $(document).ready(function () {
         submitHandler: function () {
             var formData = $("#registerForm").serializeArray();
             //console.log(formData);
-            var fistandlast = formData[0].value.toString().split(" ");
-            //setTimeout(function () { //for printing data to console (comment out later)
-            firebase.auth().createUserWithEmailAndPassword(formData[2].value, formData[3].value).then(function () {
-                //save data to database
-                var user = firebase.auth().currentUser;
-                var name = formData[0].value.toString();
-                var email = formData[2].value.toString();
-                user.updateProfile({
-                    displayName: name,
-                    email: email
-                }).then(function () {
-                    // Update successful.
-                    var userId = user.uid;
-                    var notificationsettingsData = {
-                        emailon: true
-                    };
-                    firebase.database().ref('users/' + userId).set({
-                        name: name,
-                        firstname: fistandlast[0],
-                        lastname: fistandlast.slice(1).join(' '),
-                        username: formData[1].value.toString(),
-                        email: email,
-                        signintype: "email",
-                        notificationsettings: notificationsettingsData
-                    }).then(function () {
-                        user.sendEmailVerification().then(function () {
-                            // Email sent.
-                            //console.log("successfully registered!")
-                            firebase.auth().signOut().then(function () {
-                                //console.log('Signed Out');
-                                $('#alertsuccessregistered').fadeIn();
-                                setTimeout(function () {
-                                    $('#alertsuccessregistered').fadeOut();
-                                    setTimeout(function () {
-                                        //console.log("redirecting to login")
-                                        window.location.href = 'login.html';
-                                    }, config.other.redirecttimeout);
-                                }, config.other.alerttimeout);
+            var secretKeyInput = formData[1].value.toString();
+            //console.log("sending submission email notification");
+            var checkSecretKey = firebase.functions().httpsCallable('checksecretkey');
+            checkSecretKey({
+                secretKey: secretKeyInput
+            }).then(function (result) {
+                // Read result of the Cloud Function.
+                //console.log(result);
+                var statusMessage = result.data.status;
+                console.log(statusMessage);
+                if (statusMessage == "valid") {
+                    var fistandlast = formData[0].value.toString().split(" ");
+                    firebase.auth().createUserWithEmailAndPassword(formData[2].value, formData[3].value).then(function () {
+                        //save data to database
+                        var user = firebase.auth().currentUser;
+                        var name = formData[0].value.toString();
+                        var email = formData[2].value.toString();
+                        user.updateProfile({
+                            displayName: name,
+                            email: email
+                        }).then(function () {
+                            // Update successful.
+                            var userId = user.uid;
+                            var notificationsettingsData = {
+                                emailon: true
+                            };
+                            firebase.database().ref('users/' + userId).set({
+                                name: name,
+                                firstname: fistandlast[0],
+                                lastname: fistandlast.slice(1).join(' '),
+                                email: email,
+                                signintype: "email",
+                                notificationsettings: notificationsettingsData
+                            }).then(function () {
+                                user.sendEmailVerification().then(function () {
+                                    // Email sent.
+                                    //console.log("successfully registered!")
+                                    firebase.auth().signOut().then(function () {
+                                        //console.log('Signed Out');
+                                        $('#alertsuccessregistered').fadeIn();
+                                        setTimeout(function () {
+                                            $('#alertsuccessregistered').fadeOut();
+                                            setTimeout(function () {
+                                                //console.log("redirecting to login")
+                                                window.location.href = 'login.html';
+                                            }, config.other.redirecttimeout);
+                                        }, config.other.alerttimeout);
+                                    }).catch(function (error) {
+                                        //console.error('Sign Out Error', error);
+                                        handleError(error);
+                                    });
+                                }).catch(function (error) {
+                                    // An error happened.
+                                    handleError(error);
+                                });
                             }).catch(function (error) {
-                                //console.error('Sign Out Error', error);
-                                handleError(error);
+                                user.delete().then(function () {
+                                    firebase.auth().signOut().then(function () {
+                                        //console.log('Signed Out');
+                                        handleError({
+                                            code: "auth/bad-email-user",
+                                            message: "Email not permitted"
+                                        });
+                                    }, function (error) {
+                                        //console.error('Sign Out Error', error);
+                                        handleError(error);
+                                    });
+                                }, function (error) {
+                                    //console.error('Sign Out Error', error);
+                                    handleError(error);
+                                });
                             });
                         }).catch(function (error) {
                             // An error happened.
                             handleError(error);
                         });
                     }).catch(function (error) {
-                        user.delete().then(function () {
-                            firebase.auth().signOut().then(function () {
-                                //console.log('Signed Out');
-                                handleError({
-                                    code: "auth/bad-email-user",
-                                    message: "Email not permitted"
-                                });
-                            }, function (error) {
-                                //console.error('Sign Out Error', error);
-                                handleError(error);
-                            });
-                        }, function (error) {
-                            //console.error('Sign Out Error', error);
-                            handleError(error);
-                        });
+                        handleError(error);
                     });
-                }).catch(function (error) {
-                    // An error happened.
-                    handleError(error);
-                });
+                } else {
+                    console.log("invalid key");
+                    handleError({
+                        code: "auth/invalid-key",
+                        message: "Key not valid"
+                    });
+                }
             }).catch(function (error) {
+                // Getting the Error details.
+                //console.log(error);
                 handleError(error);
             });
-            //}, 500);
         },
         rules: {
             fullname: {
                 required: true,
                 regex1: config.regex.fullname
             },
-            username: {
-                required: true,
-                minlength: 3,
-                maxlength: 15
+            secretKey: {
+                required: true
             },
             password: {
                 required: true,
@@ -271,10 +293,8 @@ $(document).ready(function () {
         },
         messages: {
             fullname: "Please enter your full name",
-            username: {
-                required: "Please enter a username",
-                minlength: "Your username must consist of at least 3 characters",
-                maxlength: "Your username cannot exceed 15 characters"
+            secretkey: {
+                required: "Please enter a secret key"
             },
             password: {
                 required: "Please provide a password",

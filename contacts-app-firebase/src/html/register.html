@@ -3,7 +3,7 @@
 
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123955306-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125093104-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
@@ -12,7 +12,7 @@
 		}
 		gtag('js', new Date());
 
-		gtag('config', 'UA-123955306-1');
+		gtag('config', 'UA-125093104-1');
 	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
@@ -98,9 +98,10 @@
 							<div class="d-flex justify-content-center">
 								<h4 class="card-title">Create Account</h4>
 							</div>
-							<div class="google-register-container d-flex justify-content-center">
+							<!-- Google Register -->
+							<!-- div class="google-register-container d-flex justify-content-center">
 								<div class="google-register-picture" id="loginSubmitGoogle"></div>
-							</div>
+							</div -->
 							<br/>
 							<div class="row align-items-center justify-content-center">
 								<a class="btn btn-primary email-button" data-toggle="collapse" href="#expandEmail" role="button" aria-expanded="false" aria-controls="expandEmail">
@@ -115,8 +116,8 @@
 										<input type="text" class="form-control" id="fullname" name="fullname" required autofocus/>
 									</div>
 									<div class="form-group">
-										<label class="control-label" for="username">Username</label>
-										<input type="text" class="form-control" id="username" name="username" />
+										<label class="control-label" for="secretkey">Secret Key</label>
+										<input type="text" class="form-control" id="secretkey" name="secretkey" required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label" for="email">Email</label>
