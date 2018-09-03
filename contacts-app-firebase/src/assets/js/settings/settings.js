@@ -369,7 +369,6 @@ $(document).ready(function () {
         //console.log(button);
         var valueArray = button.attr('value').split(',');
         //console.log(valueArray);
-        var workflowid = valueArray[0];
         var started = false;
         $('#alertconfirmdeleteaccount').fadeIn();
         $("#cancelDeleteAccount").on('click touchstart', function () {

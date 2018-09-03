@@ -139,7 +139,7 @@ $(document).ready(function () {
                 var loctionId = location.key;
                 //console.log("location data: " + locationVal, loctionId);
                 var locationName = locationVal.name;
-                //console.log(workflowName);
+                //console.log(locationName);
                 locationSelectString = locationSelectString + "<option data-tokens=\"" + locationName + "\" value=\"" + loctionId + "\">" + locationName + "</option>";
                 if (countlocations == numlocations) {
                     locationSelectString = locationSelectString + "</select><br/><br/><br/><br/>";
@@ -150,15 +150,15 @@ $(document).ready(function () {
                         $('#locationSelect').selectpicker('mobile');
                     }
                     $('.selectpicker').selectpicker();
-                    //console.log("workflow select: " + workflowSelect);
+                    //console.log("location select: " + locationSelectString);
                     $('.locationSelect').on("change", function (elem) {
                         $("#nodatawarning").addClass("collapse");
-                        // on select update workflowSelect variable
+                        // on select update locationSelect variable
                         //console.log($(this));
                         //console.log("changed value");
                         var locationSelect = elem.target.value;
-                        //console.log("selected " + workflowSelect);
-                        //console.log(workflowSelect);
+                        //console.log("selected " + locationSelect);
+                        //console.log(locationSelect);
                         if (locationSelect !== "") {
                             window.locationSelect = locationSelect;
                             $('#downloadButtonCollapse').removeClass("collapse");

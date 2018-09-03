@@ -53,7 +53,7 @@ Navigate [here](https://analytics.google.com/analytics/web/provision). Sign up w
 
 ## add cloud functions
 
-There are a few cloud functions used in this project to provide email notifications with approvals / rejections and initial submissions to workflow. They are found in the `functions/index.js` file. The first function is `sendApprovalEmailNotification`, which sends an email at each change in approval in a workflow chain, to the next group of approvers. This way the next group of approvers is notified only when needed at the approval. The next function `sendApprovedRejectedEmailNotification` sends an email to the submitter of the form when the form is finally approved or rejected by the workflow chain. The function `accountcleanup` deletes accounts that were created but not verified, and is triggered by a cronjob. Run `firebase deploy --only functions` to deploy all of the functions. See below for cronjob information.
+There are a few cloud functions used in this project to provide email notifications and manage users and contacts. They are found in the `functions/index.js` file. Run `firebase deploy --only functions` to deploy all of the functions. See below for cronjob information.
 
 ## add Cronjob to accountcleanup cloud function
 
