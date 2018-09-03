@@ -68,8 +68,14 @@ $(document).ready(function () {
                             var contactData = contact.val();
                             console.log(contactData);
                             for (var i = 0; i < config.other.outlookfieldnames.length; i++) {
-                                if (contactData.hasOwnProperty(config.other.outlookfieldnames[i])) {
-                                    datastring = datastring + contactData[config.other.outlookfieldnames[i]] + ",";
+                                //replace / with - to avoid json key problems
+                                var outlookfieldname = config.other.outlookfieldnames[i].replace('/', '-');
+                                if (contactData.hasOwnProperty(outlookfieldname)) {
+                                    var contactDataValue = contactData[outlookfieldname];
+                                    if (outlookfieldname == "Notes") {
+                                        contactDataValue = "\"" + contactDataValue + "\"";
+                                    }
+                                    datastring = datastring + contactDataValue + ",";
                                 } else {
                                     datastring = datastring + ",";
                                 }
@@ -203,7 +209,7 @@ $(document).ready(function () {
                 "Home City": homecity,
                 "Home State": homestate,
                 "Home Postal Code": homepostalcode,
-                "Home Country/Region": homecountry,
+                "Home Country-Region": homecountry,
                 "Notes": notes
             }).then(function () {
                 firebase.database().ref('locations').once('value').then(function (locations) {
