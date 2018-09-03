@@ -193,6 +193,7 @@ $(document).ready(function () {
             var homestate = formData[6].value.toString();
             var homepostalcode = formData[7].value.toString();
             var homecountry = formData[8].value.toString();
+            var notes = formData[9].value.toString();
             firebase.database().ref('contacts/' + contactId).set({
                 "First Name": firstname,
                 "Last Name": lastname,
@@ -202,7 +203,8 @@ $(document).ready(function () {
                 "Home City": homecity,
                 "Home State": homestate,
                 "Home Postal Code": homepostalcode,
-                "Home Country/Region": homecountry
+                "Home Country/Region": homecountry,
+                "Notes": notes
             }).then(function () {
                 firebase.database().ref('locations').once('value').then(function (locations) {
                     var numlocations = locations.numChildren();
