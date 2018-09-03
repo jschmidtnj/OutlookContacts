@@ -27,7 +27,7 @@
         "bootstrap-select",
         "datatables",
         "bootstrap4",
-        "jszip"
+        "file-saver"
     ],
     "devDependencies": {
         "autoprefixer": "^9.0.1",
