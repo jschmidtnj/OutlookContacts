@@ -112,7 +112,5 @@ dmypy.json
 #data contents
 data/
 contacts.json
-outlook_contacts.CSV
-outlook_contacts.csv
-duplicate_emails.csv
-duplicate_names.csv
+*.CSV
+*.csv
