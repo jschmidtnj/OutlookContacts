@@ -13,10 +13,6 @@ def main(uri):
   client  = MongoClient(uri)
   #connect to database
   db = client.get_default_database()
-  #delete all in database:
-  db.contacts.drop()
-  db.emailduplicates.drop()
-  db.nameduplicates.drop()
   for i in range(numfilters):
     if i == 0:
       #by Email:
@@ -35,7 +31,8 @@ def main(uri):
         {"$sort": SON([("count", -1), ("_id", -1)])}
       ]
     #send data to list
-    data = list(db.contacts.aggregate(pipeline))
+    print(pipeline)
+    data = list(db.cleancontacts.aggregate(pipeline))
     #db.command('aggregate', 'contacts', pipeline=pipeline, explain=True)
     #pprint.pprint(data)
     #put it in a json object
@@ -51,21 +48,21 @@ def main(uri):
       num_iter += 1
       ids = contact["uniqueIds"]
       #print(ids)
-      ids_to_merge = []
+      ids_duplicates = []
       #iterate over id values in json object contact
       for id in ids:
         id_value = id["$oid"]
         #print(id_value)
         #send ids to an array
-        ids_to_merge.append(id_value)
+        ids_duplicates.append(id_value)
       #get the first object from the id array, send to json
-      aggregated_contact_string = dumps(db.contacts.find_one({"_id":ObjectId(ids_to_merge[0])}), json_options=RELAXED_JSON_OPTIONS)
-      aggregated_contact = json.loads(aggregated_contact_string)
-      #pprint.pprint(aggregated_contact)
-      for id in ids_to_merge[1:]:
+      new_contact_string = dumps(db.cleancontacts.find_one({"_id":ObjectId(ids_duplicates[0])}), json_options=RELAXED_JSON_OPTIONS)
+      new_contact = json.loads(new_contact_string)
+      #pprint.pprint(new_contact)
+      for id in ids_duplicates[1:]:
         num_duplicates += 1
         #get data from contacts collection, iterating by id over the array
-        contact_data = db.contacts.find_one({"_id":ObjectId(id)})
+        contact_data = db.cleancontacts.find_one({"_id":ObjectId(id)})
         #pprint.pprint(contact_data)
         contact_data.pop('_id', None)
         #get rid of id fields in json object
@@ -75,16 +72,16 @@ def main(uri):
         else:
           #name
           post_id=db.nameduplicates.insert_one(contact_data).inserted_id
-      aggregated_contact.pop('_id', None)
-      #pprint.pprint(aggregated_contact)
-      #delete old contacts (now aggregated)
-      for id in ids_to_merge:
-        db.contacts.delete_one({"_id":ObjectId(id)})
+      new_contact.pop('_id', None)
+      #pprint.pprint(new_contact)
+      #delete filtered contacts
+      for id in ids_duplicates:
+        db.cleancontacts.delete_one({"_id":ObjectId(id)})
       #send new json object to database
-      post_id=db.contacts.insert_one(aggregated_contact).inserted_id
+      post_id=db.cleancontacts.insert_one(new_contact).inserted_id
       #print(post_id)
       new_ids.append(str(post_id))
-      #db.contacts.delete_one({"_id":ObjectId(post_id)})
+      #db.cleancontacts.delete_one({"_id":ObjectId(post_id)})
       #print out information about post
       if num_iter % 10 == 0:
         print("Iteration " + str(num_iter) + ".")

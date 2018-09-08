@@ -8,13 +8,17 @@ import time
 def main(uri, sleep_time):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #different directory
-    data_path = os.path.join(main_path, "/data")
+    data_path = os.path.join(main_path, "data")
     for file in os.listdir(data_path):
         if file.endswith("json"):
             path = os.path.join(data_path, file)
 
     client  = pymongo.MongoClient(uri)
     db = client.get_default_database()
+    #delete all in database:
+    db.cleancontacts.drop()
+    db.emailduplicates.drop()
+    db.nameduplicates.drop()
     error_count = 0
 
     count = 0
@@ -28,12 +32,12 @@ def main(uri, sleep_time):
                         count += 1
                         if count % 1000 == 0:
                             print(str(count) + " iterations of mlab send")
-                        contacts = db.contacts
+                        contacts = db.cleancontacts
                         contact_id = contacts.insert_one(data).inserted_id
                         break
                     except ValueError:
                         #not yet complete json value
-                        print("error")
+                        #print("error")
                         error_count += 1
                         #print(line)
                         #end()

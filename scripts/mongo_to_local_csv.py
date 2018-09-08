@@ -8,7 +8,7 @@ import csv
 def main(uri, filename_csv, mode, fieldnames):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #other directory
-    path = main_path + "/" + filename_csv + ".csv"
+    path = main_path + "/data/" + filename_csv + ".csv"
     client  = pymongo.MongoClient(uri)
     db = client.get_default_database()
     null_count = 0

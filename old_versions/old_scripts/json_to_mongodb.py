@@ -36,5 +36,5 @@ with open('outlook_contacts.json') as f:
 			print(count)
 		#print(parsed_json)
 		data = parsed_json
-		contacts = db.contacts
+		contacts = db.cleancontacts
 		contact_id = contacts.insert_one(data).inserted_id

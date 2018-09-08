@@ -19,7 +19,7 @@ with open('outlook_contacts.json', 'r') as f:
                 count += 1
                 if count % 1000 == 0:
                     print(count)
-                contacts = db.contacts
+                contacts = db.cleancontacts
                 contact_id = contacts.insert_one(data).inserted_id
                 break
             except ValueError:
