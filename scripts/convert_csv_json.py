@@ -7,7 +7,7 @@ import sys
 import os
 import time
 
-def main(sleep_time, filename_json):
+def main(sleep_time, filename_json, fieldnames):
   main_path = os.getcwd() #same directory
   #main_path = main_path[0:main_path.find("/scripts")] + "/data" #different directory
   csv_count = 0
@@ -30,9 +30,8 @@ def main(sleep_time, filename_json):
       print("more than one csv file found in exe directory")
       time.sleep(sleep_time)
     exit()
-  path = os.path.join(main_path, (filename_json + ".json"))
+  path = os.path.join(main_path, ("data/" + filename_json + ".json"))
   jsonfile = open(path, 'w') #write data to this file
-  fieldnames = ("Title","First Name","Middle Name","Last Name","Suffix","Company","Department","Job Title","Business Street","Business Street 2","Business Street 3","Business City","Business State","Business Postal Code","Business Country/Region","Home Street","Home Street 2","Home Street 3","Home City","Home State","Home Postal Code","Home Country/Region","Other Street","Other Street 2","Other Street 3","Other City","Other State","Other Postal Code","Other Country/Region","Assistant's Phone","Business Fax","Business Phone","Business Phone 2","Callback","Car Phone","Company Main Phone","Home Fax","Home Phone","Home Phone 2","ISDN","Mobile Phone","Other Fax","Other Phone","Pager","Primary Phone","Radio Phone","TTY/TDD Phone","Telex","Account","Anniversary","Assistant's Name","Billing Information","Birthday","Business Address PO Box","Categories","Children","Directory Server","E-mail Address","E-mail Type","E-mail Display Name","E-mail 2 Address","E-mail 2 Type","E-mail 2 Display Name","E-mail 3 Address","E-mail 3 Type","E-mail 3 Display Name","Gender","Government ID Number","Hobby","Home Address PO Box","Initials","Internet Free Busy","Keywords","Language","Location","Manager's Name","Mileage","Notes","Office Location","Organizational ID Number","Other Address PO Box","Priority","Private","Profession","Referred By","Sensitivity","Spouse","User 1","User 2","User 3","User 4","Web Page")
   count = 0 #count of json objects entered
   num_commas = 0 #number of commas found (essentially field-name deliminators)
   num_fields = len(fieldnames) #obviously the number of fieldnames above
@@ -123,6 +122,9 @@ def main(sleep_time, filename_json):
   print("There were " + str(num_iterations) + " iterations.")
 
 if __name__ == '__main__':
-  filename_json = "contacts"
-  sleep_time = 5
-  main(sleep_time, filename_json)
+  with open('config.json') as f:
+    config = json.load(f)
+    filename_json = config["filename_json"]
+    sleep_time = config["sleep_time"]
+    fieldnames = config["fieldnames"]
+    main(sleep_time, filename_json, fieldnames)

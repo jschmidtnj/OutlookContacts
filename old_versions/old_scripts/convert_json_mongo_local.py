@@ -24,7 +24,7 @@ with open('outlook_contacts.json', 'r') as f:
                 break
             except ValueError:
                 #not yet complete json value
-                print("error")
+                #print("error")
                 error_count += 1
                 #print(line)
                 #end()

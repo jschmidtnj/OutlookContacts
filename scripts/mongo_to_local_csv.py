@@ -5,11 +5,10 @@ from bson.json_util import dumps, RELAXED_JSON_OPTIONS
 import os
 import csv
 
-def main(uri, filename_csv):
+def main(uri, filename_csv, mode, fieldnames):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #other directory
     path = main_path + "/" + filename_csv + ".csv"
-    fieldnames = ("Title","First Name","Middle Name","Last Name","Suffix","Company","Department","Job Title","Business Street","Business Street 2","Business Street 3","Business City","Business State","Business Postal Code","Business Country/Region","Home Street","Home Street 2","Home Street 3","Home City","Home State","Home Postal Code","Home Country/Region","Other Street","Other Street 2","Other Street 3","Other City","Other State","Other Postal Code","Other Country/Region","Assistant's Phone","Business Fax","Business Phone","Business Phone 2","Callback","Car Phone","Company Main Phone","Home Fax","Home Phone","Home Phone 2","ISDN","Mobile Phone","Other Fax","Other Phone","Pager","Primary Phone","Radio Phone","TTY/TDD Phone","Telex","Account","Anniversary","Assistant's Name","Billing Information","Birthday","Business Address PO Box","Categories","Children","Directory Server","E-mail Address","E-mail Type","E-mail Display Name","E-mail 2 Address","E-mail 2 Type","E-mail 2 Display Name","E-mail 3 Address","E-mail 3 Type","E-mail 3 Display Name","Gender","Government ID Number","Hobby","Home Address PO Box","Initials","Internet Free Busy","Keywords","Language","Location","Manager's Name","Mileage","Notes","Office Location","Organizational ID Number","Other Address PO Box","Priority","Private","Profession","Referred By","Sensitivity","Spouse","User 1","User 2","User 3","User 4","Web Page")
     client  = pymongo.MongoClient(uri)
     db = client.get_default_database()
     null_count = 0
@@ -28,7 +27,12 @@ def main(uri, filename_csv):
     out.writerow(new_file_data)
     new_file_data = []
 
-    for contact in db.contacts.find():
+    if mode == 0:
+        data = db.emailduplicates.find()
+    else:
+        data = db.nameduplicates.find()
+
+    for contact in data:
         count += 1
         #print(contact) # iterate the cursor
         json_string = dumps(contact, json_options=RELAXED_JSON_OPTIONS)
@@ -73,7 +77,12 @@ def main(uri, filename_csv):
 
 
 if __name__ == '__main__':
-    #uri goes to mlab for getting the data
-    uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
-    filename_csv = "contacts_exported"
-    main(uri, filename_csv)
+    with open('config.json') as f:
+        config = json.load(f)
+        #uri goes to mlab for getting the data
+        uri = config["uri"]
+        fieldnames = config["fieldnames"]
+        filename_csv = config["filename_email_csv"]
+        main(uri, filename_csv, 0, fieldnames)
+        filename_csv = config["filename_name_csv"]
+        main(uri, filename_csv, 1, fieldnames)

@@ -8,9 +8,10 @@ import time
 def main(uri, sleep_time):
     main_path = os.getcwd() #same directory
     #main_path = main_path[0:main_path.find("/scripts")] + "/data" #different directory
-    for file in os.listdir(main_path):
+    data_path = os.path.join(main_path, "/data")
+    for file in os.listdir(data_path):
         if file.endswith("json"):
-            path = os.path.join(main_path, file)
+            path = os.path.join(data_path, file)
 
     client  = pymongo.MongoClient(uri)
     db = client.get_default_database()
@@ -46,6 +47,8 @@ def main(uri, sleep_time):
     print("There were " + str(error_count) + " errors")
 
 if __name__ == '__main__':
-    uri = 'mongodb://admin:password1@ds153380.mlab.com:53380/meanauthapp'
-    sleep_time = 5
-    main(uri, sleep_time)
+    with open('config.json') as f:
+        config = json.load(f)
+        uri = config["uri"]
+        sleep_time = config["sleep_time"]
+        main(uri, sleep_time)
