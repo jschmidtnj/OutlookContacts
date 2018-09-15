@@ -67,7 +67,7 @@ section h2 {
 }
 
 #mainNav .navbar-brand {
-  color: #ce131c;
+  color: #dc2430;
   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
   font-weight: 200;
   letter-spacing: 1px;
@@ -91,7 +91,7 @@ section h2 {
 }
 
 #mainNav .navbar-nav > li > a.active {
-  color: #ce131c !important;
+  color: #dc2430 !important;
   background-color: transparent;
 }
 
@@ -106,7 +106,7 @@ section h2 {
 
 #mainNav .navbar-nav > li > a:hover,
 #mainNav .navbar-nav > li > a:focus:hover {
-  color: #ce131c;
+  color: #dc2430;
 }
 
 @media (min-width: 992px) {
@@ -133,7 +133,7 @@ section h2 {
     background-color: white;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #ce131c;
+    color: #dc2430;
   }
   #mainNav.navbar-shrink .navbar-brand:hover, #mainNav.navbar-shrink .navbar-brand:focus {
     color: rgba(206, 19, 28, .7);
@@ -144,7 +144,7 @@ section h2 {
   }
   #mainNav.navbar-shrink .navbar-nav > li > a:hover,
   #mainNav.navbar-shrink .navbar-nav > li > a:focus:hover {
-    color: #ce131c;
+    color: #dc2430;
   }
 }
 
@@ -155,8 +155,8 @@ header.masthead {
   padding-bottom: 100px;
   color: white;
   background: url("../images/indexpattern.png"), #7b4397;
-  background: url("../images/indexpattern.png"), -webkit-linear-gradient(to left, #dc2430, #ce131c);
-  background: url("../images/indexpattern.png"), linear-gradient(to left, #dc2430, #ce131c);
+  background: url("../images/indexpattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
+  background: url("../images/indexpattern.png"), linear-gradient(to left, #7b4397, #dc2430);
 }
 
 header.masthead .header-content {
@@ -271,7 +271,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
   color: white;
   border-color: white;
-  background-color: #ce131c;
+  background-color: #dc2430;
 }
 
 .btn {

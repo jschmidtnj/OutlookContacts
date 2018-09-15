@@ -44,29 +44,30 @@ $(document).ready(function () {
 
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
+    $('#helplink').attr('href', config.other.helpPageUrl);
 
     function downloadCSV() {
         var BOM = "\uFEFF";
         var datastring = "";
         firebase.database().ref('locations/' + window.locationSelect).once('value').then(function (location) {
             var locationId = location.key;
-            console.log(locationId);
+            //console.log(locationId);
             var locationData = location.val();
             var contactIdData = locationData.contacts;
             if (contactIdData !== undefined) {
                 $("#nodatawarning").addClass("collapse");
-                console.log(contactIdData);
+                //console.log(contactIdData);
                 var locationname = locationData.name;
                 var numcontacts = locationData.numcontacts;
                 var numContactIterations = 0;
                 for (var index in contactIdData) {
                     if (contactIdData.hasOwnProperty(index)) {
-                        console.log(contactIdData[index]);
+                        //console.log(contactIdData[index]);
                         var contactId = contactIdData[index].id;
-                        console.log(contactId);
+                        //console.log(contactId);
                         firebase.database().ref('contacts/' + contactId).once('value').then(function (contact) {
                             var contactData = contact.val();
-                            console.log(contactData);
+                            //console.log(contactData);
                             for (var i = 0; i < config.other.outlookfieldnames.length; i++) {
                                 //replace / with - to avoid json key problems
                                 var outlookfieldname = config.other.outlookfieldnames[i].replace('/', '-');
@@ -117,7 +118,7 @@ $(document).ready(function () {
                     }
                 }
             } else {
-                console.log("contact id data undefined");
+                //console.log("contact id data undefined");
                 $("#nodatawarning").removeClass("collapse");
             }
         }).catch(function (error) {
@@ -133,7 +134,7 @@ $(document).ready(function () {
     }
 
     function createlocationSelect() {
-        console.log("Create location select");
+        //console.log("Create location select");
         firebase.database().ref('locations').once('value').then(function (locations) {
             var locationSelectString = "<select class=\"selectpicker locationSelect\" data-live-search=\"true\" id=\"locationSelect\">" +
                 "<option data-tokens=\"none\" value=\"\">none</option>";
@@ -186,7 +187,7 @@ $(document).ready(function () {
 
     function createContactSubmitForm() {
         if ($("#addContactForm").valid()) {
-            console.log("form valid");
+            //console.log("form valid");
             var formData = $("#addContactForm").serializeArray();
             //console.log(formData);
             var contactId = firebase.database().ref().child('contacts').push().key;
@@ -229,7 +230,7 @@ $(document).ready(function () {
                                 firebase.database().ref('locations/' + locationId).update({
                                     numcontacts: newcontactnum
                                 }).then(function () {
-                                    console.log("successful update");
+                                    //console.log("successful update");
                                 }).catch(function (error) {
                                     handleError(error);
                                 });
@@ -313,9 +314,9 @@ $(document).ready(function () {
                 createContactSubmitForm();
             });
             if (!(testemail.test(window.email))) {
-                console.log("non-admin");
+                //console.log("non-admin");
             } else {
-                console.log("admin");
+                //console.log("admin");
                 createlocationSelect();
             }
             signed_in_initially = true;

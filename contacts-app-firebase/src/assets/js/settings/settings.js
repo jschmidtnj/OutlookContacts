@@ -111,7 +111,7 @@ function getInitialValues() {
         var username = userDataVal.username;
         $("#username").val(username);
         if (window.userstatus == "admin") {
-            console.log("admin");
+            //console.log("admin");
             var emailnotificationssetting = userDataVal.notificationsettings.emailon;
             if (emailnotificationssetting) {
                 $("#emailnotificationslabel").text("On");
@@ -123,7 +123,7 @@ function getInitialValues() {
             $("#changeLocationsCollapse").removeClass("collapse");
             createLocationTable();
         } else if (window.userstatus == "nonadmin") {
-            console.log("nonadmin");
+            //console.log("nonadmin");
         }
     }).catch(function (err) {
         handleError(err);
@@ -134,6 +134,7 @@ $(document).ready(function () {
 
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
+    $('#helplink').attr('href', config.other.helpPageUrl);
 
     var signed_in_initially = false;
     firebase.auth().onAuthStateChanged(function (user) {
@@ -228,7 +229,7 @@ $(document).ready(function () {
 
     function addLocation() {
         if ($("#addLocation").valid()) {
-            console.log("location valid");
+            //console.log("location valid");
             var formData = $("#addLocation").serializeArray();
             //console.log(formData);
             var contactId = firebase.database().ref().child('functions').push().key;

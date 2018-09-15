@@ -14,6 +14,17 @@
 
     gtag('config', 'UA-125093104-1');
   </script>
+  <!-- PWA -->
+  <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('serviceworker.js').then(function() {
+            //console.log("Service Worker registered successfully");
+        }).catch(function(err) {
+            console.log("Service worker registration failed")
+            console.log(err);
+        });
+      }
+    </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="title" content="Outlook Contacts">
@@ -35,14 +46,21 @@
 
   <!-- Custom styles for this template -->
   <link href="assets/css/index.css" rel="stylesheet">
-</head>
 
-<!-- Vuejs: -->
-<!--div id="header-footer">
-  <testcomponent></testcomponent>
-  <headercomponent></headercomponent>
-  <footercomponent></footercomponent>
-</div-->
+  <!-- Add Manifest for PWA-->
+  <link rel="manifest" href="manifest.json">
+  <!-- Add Safari support for PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="blue">
+  <meta name="apple-mobile-web-app-title" content="Outlook Contacts">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_48.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_96.png" sizes="96x96">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_144.png" sizes="144x144">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_256.png" sizes="256x256">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_384.png" sizes="384x384">
+  <link rel="apple-touch-icon" href="assets/icons/pwa_icons/app_icon_512.png" sizes="512x512">
+</head>
 
 <body id="page-top">
   <!-- Navigation -->
@@ -75,7 +93,7 @@
         <div class="col-lg-5 my-auto">
           <div class="header-content mx-auto">
             <h1 class="mb-5">Outlook Contacts is an application for creating contacts and syncing with Outlook.</h1>
-            <a href="register.html" class="btn btn-outline btn-xl js-scroll-trigger">Get started today.</a>
+            <a href="login.html" class="btn btn-outline btn-xl js-scroll-trigger">Login</a>
           </div>
         </div>
         <div class="col-lg-7 my-auto">
@@ -96,7 +114,7 @@
           <a target="_blank" id="toslink">Terms</a>
         </li>
         <li class="list-inline-item">
-          <a href="help.html">Help</a>
+          <a target="_blank" id="helplink">Help</a>
         </li>
       </ul>
     </div>

@@ -126,6 +126,7 @@ $(document).ready(function () {
 
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
+    $('#helplink').attr('href', config.other.helpPageUrl);
 
     window.urlRedirect = "dashboard.html";
     checkIfLoggedin();

@@ -11,7 +11,7 @@
 
 #mainNav {
   border-color: rgba(206, 19, 28, .7);
-  background-color: #ce131c;
+  background-color: #dc2430;
   -webkit-transition: all .35s;
   -moz-transition: all .35s;
   transition: all .35s;
@@ -68,7 +68,7 @@
 @media (min-width: 992px) {
   #mainNav {
     border-color: rgba(206, 19, 28, .7);
-    background-color: #ce131c;
+    background-color: #dc2430;
   }
   #mainNav .navbar-brand {
     color: white;
@@ -87,7 +87,7 @@
   }
   #mainNav.navbar-shrink {
     border-color: rgba(206, 19, 28, .7);
-    background-color: #ce131c;
+    background-color: #dc2430;
   }
   #mainNav.navbar-shrink .navbar-brand {
     color: white;

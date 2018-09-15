@@ -91,4 +91,4 @@ https://us-central1-<PROJECT-ID>.cloudfunctions.net/accountcleanup?key=<YOUR-KEY
 
 ## credits
 
-Thank you [Chad](https://codepen.io/hellochad/pen/weMpgE) for your awesome 404 error page, and [BlackRockDigital](https://github.com/BlackrockDigital/startbootstrap-new-age) for the great Bootstrap template. For the icons and fonts, [icomoon](https://icomoon.io) is great paired with [fontawesome](https://fontawesome.com/).
+Thank you [Chad](https://codepen.io/hellochad/pen/weMpgE) for your awesome 404 error page, and [BlackRockDigital](https://github.com/BlackrockDigital/startbootstrap-new-age) for the great Bootstrap template. For the icons and fonts, [icomoon](https://icomoon.io) is great paired with [fontawesome](https://fontawesome.com/). Thanks to [Privacy Policy Generator](https://app-privacy-policy-generator.firebaseapp.com/), there is now a custom ToS for this app.

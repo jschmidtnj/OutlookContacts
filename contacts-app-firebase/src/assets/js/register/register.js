@@ -154,6 +154,7 @@ $(document).ready(function () {
     //create terms of service and privacy policy links
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
+    $('#helplink').attr('href', config.other.helpPageUrl);
 
     $("#loginSubmitGoogle").on('click touchstart', function () {
         //console.log("signing into google");
@@ -182,7 +183,7 @@ $(document).ready(function () {
                 // Read result of the Cloud Function.
                 //console.log(result);
                 var statusMessage = result.data.status;
-                console.log(statusMessage);
+                //console.log(statusMessage);
                 if (statusMessage == "valid") {
                     var fistandlast = formData[0].value.toString().split(" ");
                     firebase.auth().createUserWithEmailAndPassword(formData[2].value, formData[3].value).then(function () {
@@ -253,7 +254,7 @@ $(document).ready(function () {
                         handleError(error);
                     });
                 } else {
-                    console.log("invalid key");
+                    //console.log("invalid key");
                     handleError({
                         code: "auth/invalid-key",
                         message: "Key not valid"

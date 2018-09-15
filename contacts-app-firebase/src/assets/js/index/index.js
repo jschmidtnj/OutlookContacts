@@ -11,6 +11,7 @@ $(document).ready(function () {
     //create terms of service and privacy policy links
     $('#toslink').attr('href', config.other.tosUrl);
     $('#privacypolicylink').attr('href', config.other.privacyPolicyUrl);
+    $('#helplink').attr('href', config.other.helpPageUrl);
 
     // Smooth scrolling using jQuery easing - see template in readme credits for more info
     /*
