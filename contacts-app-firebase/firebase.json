@@ -55,6 +55,26 @@
         "source": "/settings",
         "destination": "/settings.html",
         "type" : 301
+      },
+      {
+        "source": "/privacypolicy",
+        "destination": "/privacypolicy.html",
+        "type" : 301
+      },
+      {
+        "source": "/privacy",
+        "destination": "/privacypolicy.html",
+        "type" : 301
+      },
+      {
+        "source": "/termsandconditions",
+        "destination": "/termsandconditions.html",
+        "type" : 301
+      },
+      {
+        "source": "/terms",
+        "destination": "/termsandconditions.html",
+        "type" : 301
       }
     ],
     "headers": [{

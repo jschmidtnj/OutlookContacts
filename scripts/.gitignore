@@ -109,8 +109,11 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-#data contents
+# data contents
 data/
 contacts.json
 *.CSV
 *.csv
+
+# config file
+config.json
