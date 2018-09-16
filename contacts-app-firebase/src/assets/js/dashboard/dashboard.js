@@ -38,6 +38,21 @@ function handleError(error) {
     }, config.other.alerttimeout);
 }
 
+function text2Binary(string) {
+    return string.split('').map(function (char) {
+        return char.charCodeAt(0).toString(2);
+    }).join(' ');
+}
+
+function str2ab(str) {
+    var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+    var bufView = new Uint16Array(buf);
+    for (var i=0, strLen=str.length; i<strLen; i++) {
+      bufView[i] = str.charCodeAt(i);
+    }
+    return buf;
+  }
+
 var createdDownloadButton = false;
 
 $(document).ready(function () {
@@ -85,8 +100,9 @@ $(document).ready(function () {
                             numContactIterations++;
                             if (numcontacts == numContactIterations) {
                                 var csvData = BOM + datastring;
+                                var csvDataBinary = str2ab(datastring);
                                 var blob = new Blob([csvData], {
-                                    type: "text/csv;charset=utf-8"
+                                    type: "text/csv;charset=utf-8" //trying ANSI instead of utf-8
                                 });
                                 var rightnow = new Date();
                                 var datevalues = [
@@ -99,12 +115,14 @@ $(document).ready(function () {
                                 ];
                                 var filename = locationname + '-' + datevalues[0] + '-' + ("0" + datevalues[1]).slice(-2) + '-' + ("0" + datevalues[2]).slice(-2) + '-' + ("0" + datevalues[3]).slice(-2) + '-' + ("0" + datevalues[4]).slice(-2) + '.csv';
                                 var dateTime = Date.now();
+                                var file = new File([new Uint8Array(csvDataBinary)], filename, {type: "data:application/octet-stream;base64,"});
                                 firebase.database().ref('locations/' + locationId).update({
                                     lastdownloaddate: dateTime,
                                     numcontacts: 0
                                 }).then(function () {
                                     firebase.database().ref('locations/' + locationId + '/contacts').remove().then(function () {
-                                        FileSaver.saveAs(blob, filename);
+                                        //FileSaver.saveAs(blob, filename);
+                                        FileSaver.saveAs(file);
                                     }).catch(function (error) {
                                         handleError(error);
                                     });

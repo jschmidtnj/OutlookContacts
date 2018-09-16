@@ -18,3 +18,6 @@ https://www.excelcampus.com/vba/copy-paste-cells-vba-macros/
 https://github.com/electron  
 https://medium.com/dreamcatcher-its-blog/making-an-stand-alone-executable-from-a-python-script-using-pyinstaller-d1df9170e263  
 https://stackoverflow.com/questions/41570359/how-can-i-convert-a-py-to-exe-for-python  
+
+## see error message when running exe
+https://superuser.com/questions/776903/how-can-i-force-a-cmd-exe-prompt-error-message-to-not-close
