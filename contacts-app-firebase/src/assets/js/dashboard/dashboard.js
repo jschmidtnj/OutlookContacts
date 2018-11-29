@@ -14,6 +14,8 @@ require("firebase/database");
 var config = require('../../../config/config.json');
 firebase.initializeApp(config.firebase);
 
+var iconv = require('iconv-lite');
+
 function handleError(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -99,11 +101,8 @@ $(document).ready(function () {
                             datastring += "\r\n";
                             numContactIterations++;
                             if (numcontacts == numContactIterations) {
-                                var csvData = BOM + datastring;
+                                //var csvData = BOM + datastring;
                                 var csvDataBinary = str2ab(datastring);
-                                var blob = new Blob([csvData], {
-                                    type: "text/csv;charset=utf-8" //trying ANSI instead of utf-8
-                                });
                                 var rightnow = new Date();
                                 var datevalues = [
                                     rightnow.getFullYear(),
@@ -115,13 +114,22 @@ $(document).ready(function () {
                                 ];
                                 var filename = locationname + '-' + datevalues[0] + '-' + ("0" + datevalues[1]).slice(-2) + '-' + ("0" + datevalues[2]).slice(-2) + '-' + ("0" + datevalues[3]).slice(-2) + '-' + ("0" + datevalues[4]).slice(-2) + '.csv';
                                 var dateTime = Date.now();
-                                var file = new File([new Uint8Array(csvDataBinary)], filename, {type: "data:application/octet-stream;base64,"});
+                                var platform = window.navigator.platform;
+                                var windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+                                var newbuffer = [new Uint8Array(csvDataBinary)];
+                                var filetype = {type: "data:application/octet-stream;base64,"};
+                                if (windowsPlatforms.indexOf(platform) !== -1) {
+                                    console.log("windows");
+                                    newbuffer = iconv.encode(csvDataBinary, 'win1251');
+                                    filetype = {type: "text/csv;charset=ansi"};
+                                }
+                                console.log(newbuffer);
+                                var file = new File(newbuffer, filename, filetype);
                                 firebase.database().ref('locations/' + locationId).update({
                                     lastdownloaddate: dateTime,
                                     numcontacts: 0
                                 }).then(function () {
                                     firebase.database().ref('locations/' + locationId + '/contacts').remove().then(function () {
-                                        //FileSaver.saveAs(blob, filename);
                                         FileSaver.saveAs(file);
                                     }).catch(function (error) {
                                         handleError(error);

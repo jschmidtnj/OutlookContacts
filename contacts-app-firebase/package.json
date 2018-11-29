@@ -8,7 +8,8 @@
     "license": "MIT",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "rm -rf dist && webpack && cp -a src/assets/css dist/assets && cp -a src/html/. dist/ && cp -a src/assets/icons dist/assets && cp -a src/assets/images dist/assets && cp -a src/config dist && cp dist/assets/js/pwa/serviceworker.js dist/serviceworker.js"
+        "build": "rm -rf dist && webpack && cp -a src/assets/css dist/assets && cp -a src/html/. dist/ && cp -a src/assets/icons dist/assets && cp -a src/assets/images dist/assets && cp -a src/config dist && cp dist/assets/js/pwa/serviceworker.js dist/serviceworker.js",
+        "start": "node server.js"
     },
     "keywords": [
         "contacts",
@@ -48,6 +49,7 @@
     "dependencies": {
         "bootstrap": "^4.1.2",
         "bootstrap-select": "^1.13.1",
+        "connect": "^3.6.6",
         "datatables.net-autofill-bs4": "^2.3.1",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-buttons-bs4": "^1.5.3",
@@ -64,6 +66,7 @@
         "firebase": "^5.3.0",
         "firebaseui": "^3.1.1",
         "font-awesome": "^4.7.0",
+        "iconv-lite": "^0.4.24",
         "jquery": "^3.3.1",
         "jquery-ui": "^1.12.1",
         "jquery-validation": "^1.17.0",
@@ -71,6 +74,7 @@
         "less": "^3.8.1",
         "particles.js": "^2.0.0",
         "popper.js": "^1.14.3",
+        "serve-static": "^1.13.2",
         "sprity": "^1.0.8",
         "vue": "^2.5.16"
     }

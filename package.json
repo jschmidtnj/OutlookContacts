@@ -8,7 +8,8 @@
     "license": "MIT",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "cd contacts-app-firebase && npm run build"
+        "build": "cd contacts-app-firebase && npm run build",
+        "start": "cd contacts-app-firebase && npm run start"
     },
     "keywords": [
         "outlook",
